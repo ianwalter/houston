@@ -29,19 +29,22 @@ async function run () {
     //
     await fs.writeFile('/etc/systemd/system/houston.service', source`
       [Service]
-      ExecStart=/usr/bin/houston serve
       Environment="HOUSTON_SECRET=${secret}"
+      ExecStart=/usr/bin/houston serve
     `)
 
     //
-    await execa('systemctl --system daemon-reload')
+    await execa('systemctl', ['--system', 'daemon-reload'])
 
     //
-    await execa('systemctl enable houston.socket')
+    await execa('systemctl', ['enable', 'houston.socket'])
 
     print.success('houston systemd configuration installed!')
   } else if (command === 'serve') {
     require('./server')
+  } else if (command === 'logs') {
+    const options = { stdio: 'inherit' }
+    await execa('journalctl', ['-u', 'houston.service', '-f'], options)
   }
 }
 
