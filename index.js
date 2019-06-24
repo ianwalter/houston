@@ -19,7 +19,7 @@ module.export = ({
           ctx.status = 200
           deploy(ctx.request.body)
         } else {
-          await onError(ctx, 'Houston webhook request with invalid signature.')
+          onError(ctx, 'Houston webhook request with invalid signature.')
         }
       } else {
         onError(ctx, 'You must pass a secret to the houston middleware.')
