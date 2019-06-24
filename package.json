@@ -1,7 +1,7 @@
 {
   "name": "@ianwalter/houston",
   "description": "A Koa middleware for handling deployment webhooks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "SEE LICENSE IN LICENSE",
   "author": "Ian Walter <public@iankwalter.com> (https://iankwalter.com)",
   "main": "index.js",
