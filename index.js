@@ -6,7 +6,7 @@ const defaultOnError = (ctx, message) => {
   log.warn(message)
 }
 
-module.export = ({
+module.exports = ({
   secret,
   deploy,
   onError = defaultOnError,
