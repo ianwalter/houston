@@ -1,6 +1,6 @@
 {
   "name": "@ianwalter/houston",
-  "description": "A Koa middleware for handling GitHub publish and deploy webhooks",
+  "description": "A Koa middleware for handling publish and deploy webhooks",
   "version": "0.0.2",
   "license": "SEE LICENSE IN LICENSE",
   "author": "Ian Walter <public@iankwalter.com> (https://iankwalter.com)",
@@ -8,13 +8,11 @@
   "scripts": {
     "test": "bff"
   },
-  "bin": {
-    "houston": "cli.js"
-  },
   "dependencies": {
     "token": "^0.1.0"
   },
   "devDependencies": {
+    "@ianwalter/bff": "^6.2.0",
     "np": "^5.0.3"
   }
 }
