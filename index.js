@@ -1,4 +1,4 @@
-const token = require('token')
+const crypto = require('crypto')
 
 const defaultOnError = (ctx, message) => {
   const log = ctx.log || console
@@ -15,7 +15,11 @@ module.exports = ({
   return (ctx, next) => {
     if (ctx.request.url === '/houston-hook') {
       if (secret) {
-        if (token.verify(`sha1=${secret}`, ctx.request.headers[header] || '')) {
+        const hmac = crypto.createHmac('sha1', secret)
+        hmac.update(ctx.request.body)
+        const signature = Buffer.from(`sha1=${hmac.digest('hex')}`)
+        const received = Buffer.from(ctx.request.headers[header] || '')
+        if (crypto.timingSafeEqual(signature, received)) {
           ctx.status = 200
           deploy(ctx.request.body)
         } else {
