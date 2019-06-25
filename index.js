@@ -21,7 +21,7 @@ module.exports = ({
         const received = Buffer.from(ctx.request.headers[header] || '')
         if (crypto.timingSafeEqual(signature, received)) {
           ctx.status = 200
-          deploy(ctx.request.body)
+          deploy(ctx)
         } else {
           onError(ctx, 'Houston webhook request with invalid signature.')
         }
