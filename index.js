@@ -16,7 +16,7 @@ module.exports = ({
     if (ctx.request.url === '/houston-hook') {
       if (secret) {
         const hmac = crypto.createHmac('sha1', secret)
-        hmac.update(ctx.request.body)
+        hmac.update(ctx.request.rawBody)
         const signature = Buffer.from(`sha1=${hmac.digest('hex')}`)
         const received = Buffer.from(ctx.request.headers[header] || '')
         if (crypto.timingSafeEqual(signature, received)) {
