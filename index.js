@@ -15,7 +15,7 @@ module.exports = ({
   return (ctx, next) => {
     if (ctx.request.url === '/houston-hook') {
       if (secret) {
-        if (token.verify(secret, ctx.request.headers[header] || '')) {
+        if (token.verify(`sha1=${secret}`, ctx.request.headers[header] || '')) {
           ctx.status = 200
           deploy(ctx.request.body)
         } else {
