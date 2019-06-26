@@ -8,7 +8,8 @@ const defaultOnError = (ctx, message) => {
 
 module.exports = ({
   secret,
-  deploy,
+  publish = () => {},
+  deploy = () => {},
   onError = defaultOnError,
   header = 'x-hub-signature'
 }) => {
@@ -21,14 +22,19 @@ module.exports = ({
         const received = Buffer.from(ctx.request.headers[header] || '')
         if (crypto.timingSafeEqual(signature, received)) {
           ctx.status = 200
-          deploy(ctx)
+          if (ctx.request.body.action === 'published') {
+            publish(ctx)
+          } else {
+            deploy(ctx)
+          }
         } else {
           onError(ctx, 'Houston webhook request with invalid signature.')
         }
       } else {
         onError(ctx, 'You must pass a secret to the houston middleware.')
       }
+    } else {
+      next()
     }
-    next()
   }
 }
