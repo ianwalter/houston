@@ -34,7 +34,7 @@ module.exports = ({
         onError(ctx, 'You must pass a secret to the houston middleware.')
       }
     } else {
-      next()
+      return next()
     }
   }
 }
